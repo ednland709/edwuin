@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule} from './app-routing.module';
-import { MenuComponent } from './menu/menu.component'
+import { MenuComponent } from './global/menu/menu.component'
 
 
 @NgModule({
