@@ -1,7 +1,7 @@
 collectiondef
 {
     "_id" : ObjectId("5982a2b32e0ef2f4c0a4e50c"),
-    "colection" : "empresa",
+    "collection" : "empresa",
     "label" : "Empresa",
     "fields" : [ 
         {
