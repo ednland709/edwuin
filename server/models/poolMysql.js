@@ -1,4 +1,4 @@
-var conn = require('./connection');
+var conn = require('./connectionMysql');
 var mysql = require('mysql');
 
 var pool = {};

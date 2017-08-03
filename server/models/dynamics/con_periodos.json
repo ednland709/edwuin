@@ -1,120 +1,262 @@
+collectiondef
 {
-    "name": "con_periodos",
-    "titlle": "con_periodos",
-    "description": "con_periodos",
-    "list": "select * from con_periodos ",
-    "JSONDefinition": [
+    "_id" : ObjectId("5982a2b32e0ef2f4c0a4e50c"),
+    "colection" : "empresa",
+    "label" : "Empresa",
+    "fields" : [ 
         {
-            "name": "CON_PERIODOS_CODIGO",
-            "title": "CON_PERIODOS_CODIGO",
-            "description": "CON_PERIODOS_CODIGO",
-            "type": "int",
-            "view": true,
-            "update": true,
-            "insert": true,
-            "key": "PRI",
-            "default": "",
-            "nulleable": false,
-            "size": 0,
-            "ordinal": 1
-        },
+            "name" : "general",
+            "controls" : [ 
+                {
+                    "name" : "nit",
+                    "title" : "Nit",
+                    "des" : "Nit de la empresa",
+                    "type" : "int",
+                    "vi" : true,
+                    "ins" : true,
+                    "up" : true,
+                    "key" : true,
+                    "req" : true,
+                    "def" : "",
+                    "size" : 0
+                }, 
+                {
+                    "name" : "dv",
+                    "title" : "DV",
+                    "des" : "Digito de verificacion",
+                    "type" : "int",
+                    "vi" : true,
+                    "ins" : true,
+                    "up" : true,
+                    "key" : true,
+                    "req" : true
+                }, 
+                {
+                    "name" : "rz",
+                    "title" : "Razon Social",
+                    "des" : "Razon social de la empresa",
+                    "type" : "str",
+                    "vi" : true,
+                    "ins" : true,
+                    "up" : true,
+                    "req" : true,
+                    "size" : 90
+                }, 
+                {
+                    "name" : "tel",
+                    "title" : "telefono",
+                    "des" : "telefono",
+                    "type" : "int",
+                    "vi" : false,
+                    "ins" : true,
+                    "up" : true,
+                    "req" : false
+                }, 
+                {
+                    "name" : "dir",
+                    "title" : "direccion",
+                    "des" : "direccion",
+                    "type" : "str",
+                    "vi" : false,
+                    "ins" : true,
+                    "up" : true,
+                    "req" : true
+                }, 
+                {
+                    "name" : "men",
+                    "title" : "mensualidad",
+                    "des" : "mensualidad",
+                    "type" : "int",
+                    "vi" : false,
+                    "ins" : true,
+                    "up" : false,
+                    "req" : true
+                }
+            ]
+        }, 
         {
-            "name": "CON_PERIODOS_NOMBRE",
-            "title": "CON_PERIODOS_NOMBRE",
-            "description": "CON_PERIODOS_NOMBRE",
-            "type": "varchar",
-            "view": true,
-            "update": true,
-            "insert": true,
-            "key": "MUL",
-            "default": "",
-            "nulleable": false,
-            "size": 20,
-            "ordinal": 2
-        },
+            "name" : "inventario",
+            "controls" : [ 
+                {
+                    "name" : "tipinv",
+                    "title" : "tipo de inventario",
+                    "des" : "mensualidad",
+                    "type" : "int",
+                    "vi" : false,
+                    "ins" : true,
+                    "up" : true,
+                    "req" : true
+                }, 
+                {
+                    "name" : "invneg",
+                    "title" : "inventario negativo",
+                    "des" : "inventario negativo",
+                    "type" : "bool",
+                    "vi" : false,
+                    "ins" : true,
+                    "up" : true,
+                    "req" : true,
+                    "def" : false
+                }
+            ]
+        }, 
         {
-            "name": "CON_PERIODOS_ANO",
-            "title": "CON_PERIODOS_ANO",
-            "description": "CON_PERIODOS_ANO",
-            "type": "smallint",
-            "view": true,
-            "update": true,
-            "insert": true,
-            "key": "",
-            "default": "",
-            "nulleable": false,
-            "size": 0,
-            "ordinal": 3
-        },
+            "name" : "representante",
+            "control" : [ 
+                {
+                    "name" : "nuirp",
+                    "title" : "identificacion representante",
+                    "des" : "numero de identificacion del representante legal",
+                    "type" : "int",
+                    "vi" : false,
+                    "ins" : true,
+                    "up" : true,
+                    "req" : true
+                }, 
+                {
+                    "name" : "pnom",
+                    "title" : "Primer Nombre",
+                    "des" : "Primer Nombre Representante",
+                    "type" : "str",
+                    "vi" : false,
+                    "ins" : true,
+                    "up" : true,
+                    "req" : true,
+                    "size" : 15
+                }, 
+                {
+                    "name" : "snom",
+                    "title" : "Segundo Nombre",
+                    "des" : "Segundo Nombre Representante",
+                    "type" : "str",
+                    "vi" : false,
+                    "ins" : true,
+                    "up" : true,
+                    "req" : true,
+                    "size" : 15
+                }, 
+                {
+                    "name" : "pap",
+                    "title" : "primer apellido",
+                    "des" : "Primer Apellido Representante",
+                    "type" : "str",
+                    "vi" : false,
+                    "ins" : true,
+                    "up" : true,
+                    "req" : true,
+                    "size" : 15
+                }, 
+                {
+                    "name" : "sap",
+                    "title" : "segundo apellido",
+                    "des" : "Segundo Apellido Representante",
+                    "type" : "str",
+                    "vi" : false,
+                    "ins" : true,
+                    "up" : true,
+                    "req" : true,
+                    "size" : 15
+                }, 
+                {
+                    "name" : "cel",
+                    "title" : "celular",
+                    "des" : "celular",
+                    "type" : "int",
+                    "vi" : false,
+                    "ins" : true,
+                    "up" : true,
+                    "req" : true
+                }, 
+                {
+                    "name" : "cor",
+                    "title" : "correo",
+                    "des" : "correo",
+                    "type" : "eml",
+                    "vi" : false,
+                    "ins" : true,
+                    "up" : true,
+                    "req" : true,
+                    "size" : 100
+                }
+            ]
+        }, 
         {
-            "name": "CON_PERIODOS_MES",
-            "title": "CON_PERIODOS_MES",
-            "description": "CON_PERIODOS_MES",
-            "type": "smallint",
-            "view": true,
-            "update": true,
-            "insert": true,
-            "key": "MUL",
-            "default": "",
-            "nulleable": false,
-            "size": 0,
-            "ordinal": 4
-        },
+            "name" : "contabilidad",
+            "controls" : [ 
+                {
+                    "name" : "plan",
+                    "title" : "plan",
+                    "des" : "plan contable",
+                    "type" : "list",
+                    "list" : [ 
+                        "PUC", 
+                        "PUR", 
+                        "OT"
+                    ],
+                    "vi" : false,
+                    "ins" : true,
+                    "up" : true,
+                    "req" : true
+                }, 
+                {
+                    "name" : "lcta",
+                    "title" : "longitud cuenta",
+                    "des" : "longitud de division de las cuentas contables",
+                    "type" : "int",
+                    "vi" : false,
+                    "ins" : true,
+                    "up" : true,
+                    "req" : true,
+                    "ordinal" : 1,
+                    "def" : "2"
+                }
+            ]
+        }, 
         {
-            "name": "CON_PERIODOS_FECHA_INI",
-            "title": "CON_PERIODOS_FECHA_INI",
-            "description": "CON_PERIODOS_FECHA_INI",
-            "type": "date",
-            "view": true,
-            "update": true,
-            "insert": true,
-            "key": "",
-            "default": "",
-            "nulleable": false,
-            "size": 0,
-            "ordinal": 5
-        },
-        {
-            "name": "CON_PERIODOS_FECHA_FIN",
-            "title": "CON_PERIODOS_FECHA_FIN",
-            "description": "CON_PERIODOS_FECHA_FIN",
-            "type": "date",
-            "view": true,
-            "update": true,
-            "insert": true,
-            "key": "",
-            "default": "",
-            "nulleable": false,
-            "size": 0,
-            "ordinal": 6
-        },
-        {
-            "name": "CON_PERIODOS_CUADRADO",
-            "title": "CON_PERIODOS_CUADRADO",
-            "description": "CON_PERIODOS_CUADRADO",
-            "type": "tinyint",
-            "view": true,
-            "update": true,
-            "insert": true,
-            "key": "",
-            "default": "1",
-            "nulleable": true,
-            "size": 0,
-            "ordinal": 7
-        },
-        {
-            "name": "CON_PERIODOS_ESTADO",
-            "title": "CON_PERIODOS_ESTADO",
-            "description": "CON_PERIODOS_ESTADO",
-            "type": "smallint",
-            "view": true,
-            "update": true,
-            "insert": true,
-            "key": "",
-            "default": "1",
-            "nulleable": true,
-            "size": 0,
-            "ordinal": 8
+            "name" : "facturacion",
+            "controls" : [ 
+                {
+                    "name" : "brtfte",
+                    "title" : "base retefuente",
+                    "des" : "base retefuente",
+                    "type" : "int",
+                    "vi" : false,
+                    "ins" : true,
+                    "up" : true,
+                    "req" : true
+                }, 
+                {
+                    "name" : "prtfte",
+                    "title" : "porcentaje retefuente",
+                    "des" : "porcentaje retefuente",
+                    "type" : "float",
+                    "vi" : false,
+                    "ins" : true,
+                    "up" : true,
+                    "req" : true
+                }, 
+                {
+                    "name" : "prtfte",
+                    "title" : "porcentaje retefuente",
+                    "des" : "porcentaje retefuente",
+                    "type" : "float",
+                    "vi" : false,
+                    "ins" : true,
+                    "up" : true,
+                    "req" : true
+                }, 
+                {
+                    "name" : "coniva",
+                    "title" : "precios con iva",
+                    "des" : "precios con iva",
+                    "type" : "bool",
+                    "vi" : false,
+                    "ins" : true,
+                    "up" : true,
+                    "req" : true,
+                    "def" : true
+                }
+            ]
         }
     ]
 }

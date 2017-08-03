@@ -3,12 +3,14 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
+var mongodb = require('mongodb');
 
 // Get our API routes
 const api = require('./server/routes/api');
-const conCuentasApi = require('./server/routes/conCuentas');
-
 const app = express();
+
+var MongoClient = require('mongodb').MongoClient;
+var db;
 
 // Parsers for POST data
 app.use(bodyParser.json());
@@ -17,9 +19,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
 
+app.use(function(req, res, next) {
+    req.db = db;
+    next();
+});
+  
 // Set our api routes
-app.use('/api', conCuentasApi);
-app.use('/api/contablidad/concuentas', conCuentasApi);
+app.use('/api', api);
+const dynamics = require('./server/routes/dynamics');
+app.use('/api/dynamics', dynamics);
 
 
 // Catch all other routes and return the index file
@@ -41,4 +49,13 @@ const server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-server.listen(port, () => console.log(`API running on localhost:${port}`));
+MongoClient.connect("mongodb://localhost:27017/datae", function(err, database) {
+  if(err) throw err;
+
+  db = database;
+
+  // Start the application after the database connection is ready
+  server.listen(port, () => console.log(`API running on localhost:${port}`));
+});
+
+

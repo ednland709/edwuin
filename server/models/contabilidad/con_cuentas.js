@@ -1,5 +1,5 @@
 var mysql = require('mysql');
-var pool = require('../pool');
+var pool = require('../poolMysql');
 
 var con_cuentas = {};
 
