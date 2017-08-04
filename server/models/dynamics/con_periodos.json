@@ -1,8 +1,14 @@
-collectiondef
 {
     "_id" : ObjectId("5982a2b32e0ef2f4c0a4e50c"),
     "collection" : "empresa",
     "label" : "Empresa",
+    "projection" : {
+        "nit" : 1,
+        "rz" : 1,
+        "tel" : 1,
+        "pnom" : 1,
+        "pap" : 1
+    },
     "fields" : [ 
         {
             "name" : "general",
@@ -12,7 +18,6 @@ collectiondef
                     "title" : "Nit",
                     "des" : "Nit de la empresa",
                     "type" : "int",
-                    "vi" : true,
                     "ins" : true,
                     "up" : true,
                     "key" : true,
@@ -25,7 +30,6 @@ collectiondef
                     "title" : "DV",
                     "des" : "Digito de verificacion",
                     "type" : "int",
-                    "vi" : true,
                     "ins" : true,
                     "up" : true,
                     "key" : true,
@@ -36,7 +40,6 @@ collectiondef
                     "title" : "Razon Social",
                     "des" : "Razon social de la empresa",
                     "type" : "str",
-                    "vi" : true,
                     "ins" : true,
                     "up" : true,
                     "req" : true,
@@ -47,7 +50,6 @@ collectiondef
                     "title" : "telefono",
                     "des" : "telefono",
                     "type" : "int",
-                    "vi" : false,
                     "ins" : true,
                     "up" : true,
                     "req" : false
@@ -57,7 +59,6 @@ collectiondef
                     "title" : "direccion",
                     "des" : "direccion",
                     "type" : "str",
-                    "vi" : false,
                     "ins" : true,
                     "up" : true,
                     "req" : true
@@ -67,7 +68,6 @@ collectiondef
                     "title" : "mensualidad",
                     "des" : "mensualidad",
                     "type" : "int",
-                    "vi" : false,
                     "ins" : true,
                     "up" : false,
                     "req" : true
@@ -82,7 +82,6 @@ collectiondef
                     "title" : "tipo de inventario",
                     "des" : "mensualidad",
                     "type" : "int",
-                    "vi" : false,
                     "ins" : true,
                     "up" : true,
                     "req" : true
@@ -92,7 +91,6 @@ collectiondef
                     "title" : "inventario negativo",
                     "des" : "inventario negativo",
                     "type" : "bool",
-                    "vi" : false,
                     "ins" : true,
                     "up" : true,
                     "req" : true,
@@ -108,7 +106,6 @@ collectiondef
                     "title" : "identificacion representante",
                     "des" : "numero de identificacion del representante legal",
                     "type" : "int",
-                    "vi" : false,
                     "ins" : true,
                     "up" : true,
                     "req" : true
@@ -118,7 +115,6 @@ collectiondef
                     "title" : "Primer Nombre",
                     "des" : "Primer Nombre Representante",
                     "type" : "str",
-                    "vi" : false,
                     "ins" : true,
                     "up" : true,
                     "req" : true,
@@ -129,7 +125,6 @@ collectiondef
                     "title" : "Segundo Nombre",
                     "des" : "Segundo Nombre Representante",
                     "type" : "str",
-                    "vi" : false,
                     "ins" : true,
                     "up" : true,
                     "req" : true,
@@ -140,7 +135,6 @@ collectiondef
                     "title" : "primer apellido",
                     "des" : "Primer Apellido Representante",
                     "type" : "str",
-                    "vi" : false,
                     "ins" : true,
                     "up" : true,
                     "req" : true,
@@ -151,7 +145,6 @@ collectiondef
                     "title" : "segundo apellido",
                     "des" : "Segundo Apellido Representante",
                     "type" : "str",
-                    "vi" : false,
                     "ins" : true,
                     "up" : true,
                     "req" : true,
@@ -162,7 +155,6 @@ collectiondef
                     "title" : "celular",
                     "des" : "celular",
                     "type" : "int",
-                    "vi" : false,
                     "ins" : true,
                     "up" : true,
                     "req" : true
@@ -172,7 +164,6 @@ collectiondef
                     "title" : "correo",
                     "des" : "correo",
                     "type" : "eml",
-                    "vi" : false,
                     "ins" : true,
                     "up" : true,
                     "req" : true,
@@ -193,7 +184,6 @@ collectiondef
                         "PUR", 
                         "OT"
                     ],
-                    "vi" : false,
                     "ins" : true,
                     "up" : true,
                     "req" : true
@@ -203,7 +193,6 @@ collectiondef
                     "title" : "longitud cuenta",
                     "des" : "longitud de division de las cuentas contables",
                     "type" : "int",
-                    "vi" : false,
                     "ins" : true,
                     "up" : true,
                     "req" : true,
@@ -220,7 +209,6 @@ collectiondef
                     "title" : "base retefuente",
                     "des" : "base retefuente",
                     "type" : "int",
-                    "vi" : false,
                     "ins" : true,
                     "up" : true,
                     "req" : true
@@ -230,7 +218,6 @@ collectiondef
                     "title" : "porcentaje retefuente",
                     "des" : "porcentaje retefuente",
                     "type" : "float",
-                    "vi" : false,
                     "ins" : true,
                     "up" : true,
                     "req" : true
@@ -240,7 +227,6 @@ collectiondef
                     "title" : "porcentaje retefuente",
                     "des" : "porcentaje retefuente",
                     "type" : "float",
-                    "vi" : false,
                     "ins" : true,
                     "up" : true,
                     "req" : true
@@ -250,7 +236,6 @@ collectiondef
                     "title" : "precios con iva",
                     "des" : "precios con iva",
                     "type" : "bool",
-                    "vi" : false,
                     "ins" : true,
                     "up" : true,
                     "req" : true,
