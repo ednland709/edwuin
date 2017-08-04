@@ -26,6 +26,7 @@ app.use(function(req, res, next) {
   
 // Set our api routes
 app.use('/api', api);
+//my apis definition
 const dynamics = require('./server/routes/dynamics');
 app.use('/api/dynamics', dynamics);
 

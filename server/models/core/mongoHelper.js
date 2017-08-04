@@ -1,9 +1,9 @@
 
-var crudHelper = {};
+var MongoHelper = {};
 
 //Obtenemos todos los usuarios
-crudHelper.insert = function (collection,  obeject, callback) {
-    db.collection(collection).find({ collection: collection }).toArray(function (error, docs) {
+MongoHelper.insert = function (collection,  doc, callback) {
+    db.collection(collection).insertOne(doc,function (error, result) {
         if (error) {
             if (!error.fatal) {
                 callback({ status: 0, error: error });
@@ -14,14 +14,12 @@ crudHelper.insert = function (collection,  obeject, callback) {
             }
         }
         else {
-            console.log("entro");
-            console.dir(docs);
-            callback({ status: 1, data: docs });
+            callback({ status: 1});
         }
     });
 }
 
-crudHelper.updateOne = function (collection,  filter, newData, callback) {
+MongoHelper.updateOne = function (collection,  filter, newData, callback) {
     db.collection(collection).updateOne(filter,{$set: newData} ,function (error, docs) {
         if (error) {
             if (!error.fatal) {
@@ -33,14 +31,12 @@ crudHelper.updateOne = function (collection,  filter, newData, callback) {
             }
         }
         else {
-            console.log("entro");
-            console.dir(docs);
             callback({ status: 1, data: docs });
         }
     });
 }
 
-crudHelper.find = function (collection,  filter, callback) {
+MongoHelper.find = function (collection,  filter, callback) {
     db.collection(collection).find(filter).toArray(function (error, docs) {
         if (error) {
             if (!error.fatal) {
@@ -52,14 +48,12 @@ crudHelper.find = function (collection,  filter, callback) {
             }
         }
         else {
-            console.log("entro");
-            console.dir(docs);
             callback({ status: 1, data: docs });
         }
     });
 }
 
-crudHelper.deleteOne = function (collection,  filter, callback) {
+MongoHelper.deleteOne = function (collection,  filter, callback) {
     db.collection(collection).deleteOne(filter,function (error, docs) {
         if (error) {
             if (!error.fatal) {
@@ -71,12 +65,10 @@ crudHelper.deleteOne = function (collection,  filter, callback) {
             }
         }
         else {
-            console.log("entro");
-            console.dir(docs);
             callback({ status: 1, data: docs });
         }
     });
 }
 
 
-module.exports = crudHelper;
+module.exports = MongoHelper;
