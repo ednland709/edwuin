@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { InterceptedHttp } from '../../http-interceptor/http-interceptor.module'
+///import { InterceptedHttp } from '../../http-interceptor/http-interceptor.service'
+import { Http } from '@angular/http'
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -8,7 +9,7 @@ export class DynamicsService {
     str: string;
     map: any;
 
-    constructor( private http:InterceptedHttp) { }
+    constructor( private http:Http) { }
 
     getDefinition(collection: string){
         let url:string = this.urlBase + 'definitionnt/';

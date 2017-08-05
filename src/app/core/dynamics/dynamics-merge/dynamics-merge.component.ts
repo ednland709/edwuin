@@ -21,7 +21,7 @@ export class DynamicsMergeComponent implements OnInit {
       this.id = +params['id']; // (+) converts string 'id' to a number
 
       //get the definition
-      this.definition = this._dynamicsService.get(this.id);
+      this.definition = this._dynamicsService.getDefinition(this.collection);
       
 
     });

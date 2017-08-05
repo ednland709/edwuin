@@ -5,14 +5,20 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component'
 import { DynamicsListComponent } from './dynamics/dynamics-list/dynamics-list.component';
 import { DynamicsMergeComponent } from './dynamics/dynamics-merge/dynamics-merge.component';
+import { MainComponent } from './main/main.component';
 
 
 const routes: Routes = [
   //{ path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '', component: LoginComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'dynamics/:collection', component: DynamicsListComponent },
-  { path: 'dynamics/merge/:collection/:id', component: DynamicsMergeComponent }
+  {
+    path: '', component: MainComponent, children: [
+      { path: 'login', component: LoginComponent },
+      { path: 'dynamics/:collection', component: DynamicsListComponent },
+      { path: 'dynamics/merge/:collection/:id', component: DynamicsMergeComponent }
+    ]
+  }
+
+
 ];
 
 @NgModule({

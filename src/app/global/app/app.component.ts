@@ -11,6 +11,7 @@ export class AppComponent {
   constructor(private router: Router) { }
 
   ngOnInit() {
+    /*
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser === undefined || currentUser === null) {
       this.router.navigate(['/core']);
@@ -19,6 +20,6 @@ export class AppComponent {
       console.log(currentUser);
       this.router.navigate(currentUser.defaultPage);
     }
-
+*/
   }
 }

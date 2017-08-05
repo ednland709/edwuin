@@ -7,6 +7,7 @@ import { MenuComponent } from './menu/menu.component';
 import { DynamicsListComponent } from './dynamics/dynamics-list/dynamics-list.component';
 import { DynamicsMergeComponent } from './dynamics/dynamics-merge/dynamics-merge.component';
 import { DynamicsService } from './dynamics/dynamics.service';
+import { MainComponent } from './main/main.component';
 //services
 
 
@@ -19,7 +20,8 @@ import { DynamicsService } from './dynamics/dynamics.service';
     LoginComponent,
     MenuComponent,
     DynamicsListComponent,
-    DynamicsMergeComponent
+    DynamicsMergeComponent,
+    MainComponent
   ],
   providers: [
     DynamicsService
