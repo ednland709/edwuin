@@ -6,12 +6,24 @@ import { LoginComponent } from './login/login.component';
 import { MenuComponent } from './menu/menu.component';
 import { DynamicsListComponent } from './dynamics/dynamics-list/dynamics-list.component';
 import { DynamicsMergeComponent } from './dynamics/dynamics-merge/dynamics-merge.component';
+import { DynamicsService } from './dynamics/dynamics.service';
+//services
+
 
 @NgModule({
   imports: [
     CommonModule,
     CoreRoutingModule
   ],
-  declarations: [LoginComponent, MenuComponent, DynamicsListComponent, DynamicsMergeComponent]
+  declarations: [
+    LoginComponent,
+    MenuComponent,
+    DynamicsListComponent,
+    DynamicsMergeComponent
+  ],
+  providers: [
+    DynamicsService
+  ]
+
 })
 export class CoreModule { }
