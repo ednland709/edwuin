@@ -29,6 +29,8 @@ app.use('/api', api);
 //my apis definition
 const dynamics = require('./server/routes/dynamics');
 app.use('/api/dynamics', dynamics);
+const menus = require('./server/routes/global/menus');
+app.use('/api/menu', menus);
 
 
 // Catch all other routes and return the index file

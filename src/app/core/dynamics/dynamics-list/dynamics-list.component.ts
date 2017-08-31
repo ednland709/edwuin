@@ -1,4 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { DynamicsService } from '../dynamics.service';
+
+
 import { ActivatedRoute } from '@angular/router';
 
 
@@ -9,18 +12,17 @@ import { ActivatedRoute } from '@angular/router';
 export class DynamicsListComponent implements OnInit {
   private sub: any;
   private collection: string;
-  private dataTable: any;
+  private tableData: any;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private _dynamicsService: DynamicsService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.collection = params['collection']; // (+) converts string 'id' to a number
 
-      // In a real app: dispatch action to load the details here.
-
-      //get the table list
-
+      console.log(this.collection);
+      //load the data for the collection
+      this.tableData = this._dynamicsService.getDefinition(this.collection);
     });
   }
 

@@ -10,15 +10,9 @@ import { MainComponent } from './main/main.component';
 @NgModule({
   imports: [
     RouterModule.forChild([
-      {
-        path: '', component: MainComponent, children: [
-          { path: 'login', component: LoginComponent },
-          { path: 'dynamics/:collection', component: DynamicsListComponent },
-          { path: 'dynamics/merge/:collection/:id', component: DynamicsMergeComponent }
-        ]
-      }
-
-
+        { path: 'login', component: LoginComponent },
+        { path: 'dynamics/:collection', component: DynamicsListComponent },
+        { path: 'dynamics/merge/:collection/:id', component: DynamicsMergeComponent }
     ])
   ],
   exports: [RouterModule]

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CoolHttp } from 'angular2-cool-http';
 
 
 @Component({
@@ -8,9 +9,11 @@ import { Router } from '@angular/router';
 })
 
 export class AppComponent {
-  constructor(private router: Router) { }
+  
+  constructor(private router: Router, private coolHttp: CoolHttp) { }
 
   ngOnInit() {
+    this.coolHttp.registerBaseUrl('http://localhost:3000/api/');
     /*
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser === undefined || currentUser === null) {

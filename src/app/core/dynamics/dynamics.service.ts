@@ -27,7 +27,13 @@ export class DynamicsService {
         url += `/${collection}/${id}`;
     }
 
-    list(skip: number, limit: number){
+    list(collection: string,  skip: number, limit: number){
+        let url:string = this.urlBase;
 
+        url += `/${collection}`;
+
+        this.http.post(url, {skip: skip, limit: limit}).map(res => {
+            this.map = res.json().data;
+        })
     }
 }
