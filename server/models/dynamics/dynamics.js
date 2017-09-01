@@ -1,7 +1,5 @@
-
 var table = {};
 var obj;
-
 
 //Obtenemos todos los usuarios
 table.getCollectionDefinitionNT = function (db, collection, callback) {
