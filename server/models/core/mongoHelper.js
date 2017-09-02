@@ -49,11 +49,30 @@ MongoHelper.find = function (db, collection,  filter, callback) {
             }
         }
         else {
-            console.log('entro');
             callback({ status: 1, data: docs });
         }
     });
 }
+
+MongoHelper.findOP = function (db, collection,  filter, options, callback) {
+    db.collection(collection)
+    .find(filter, options)
+    .toArray(function (error, docs) {
+        if (error) {
+            if (!error.fatal) {
+                callback({ status: 0, error: error });
+                return;
+            }
+            else {
+                throw error;
+            }
+        }
+        else {
+            callback({ status: 1, data: docs });
+        }
+    });
+}
+
 
 MongoHelper.deleteOne = function (db, collection,  filter, callback) {
     db.collection(collection).deleteOne(filter,function (error, docs) {

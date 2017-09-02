@@ -1,3 +1,9 @@
-<p>
-  dynamics-list works!
-</p>
+
+    <h2>{{collection}}</h2>
+    <br>
+    <p>{{collectionDef.des}}</p>
+
+
+<p-dataTable [value]="cars">
+  <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"></p-column>
+</p-dataTable>

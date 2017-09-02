@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {HttpModule} from '@angular/http'
+import {DataTableModule,SharedModule} from 'primeng/primeng';
 
 import { CoreRoutingModule } from './core-routing.module';
 import { LoginComponent } from './login/login.component';
@@ -14,7 +15,9 @@ import { DynamicsService } from './dynamics/dynamics.service';
   imports: [
     CommonModule,
     HttpModule,
-    CoreRoutingModule
+    CoreRoutingModule,
+    DataTableModule,
+    SharedModule
   ],
   declarations: [
     LoginComponent,

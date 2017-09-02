@@ -1,24 +1,18 @@
+var MongoHelper = require('../../models/core/mongoHelper');
+
 var table = {};
 var obj;
 
 //Obtenemos todos los usuarios
 table.getCollectionDefinitionNT = function (db, collection, callback) {
-    db.collection("collectiondef").find({ collection: collection }).toArray(function (error, docs) {
-        if (error) {
-            if (!error.fatal) {
-                callback({ status: 0, error: error });
-                return;
-            }
-            else {
-                throw error;
-            }
-        }
-        else {
-            console.log("entro");
-            console.dir(docs);
-            callback({ status: 1, data: docs });
-        }
+    MongoHelper.find(db, 'collectiondef', { collection: collection } , function(data){
+        callback(data);
     });
 }
 
+table.getList = function (db, collection, filter, options, callback) {
+    MongoHelper.findOP(db, collection, filter, options, function(data){
+        callback(data);
+    });
+}
 module.exports = table;

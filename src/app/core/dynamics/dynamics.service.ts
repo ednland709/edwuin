@@ -1,39 +1,26 @@
 import { Injectable } from '@angular/core';
-///import { InterceptedHttp } from '../../http-interceptor/http-interceptor.service'
-import { Http } from '@angular/http'
+import { CoolHttp } from 'angular2-cool-http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class DynamicsService {
-    urlBase:string = "dynamics/";
+    urlBase = 'dynamics/';
     str: string;
     map: any;
 
-    constructor( private http:Http) { }
+    constructor( private _coolHttp: CoolHttp) { }
 
-    getDefinition(collection: string){
-        let url:string = this.urlBase + 'definitionnt/';
-
-        url += `/${collection}`;
-
-        this.http.get(url).map(res => {
-            this.map = res.json().data;
-        })
+    async getDefinition(collection: string) {
+        return this._coolHttp.getAsync(`${this.urlBase}definitionnt/${collection}`);
     }
 
-    get(collection: string, id:number) {
-        let url:string = this.urlBase;
+    async get(collection: string, id: number) {
+        let url: string = this.urlBase;
 
         url += `/${collection}/${id}`;
     }
 
-    list(collection: string,  skip: number, limit: number){
-        let url:string = this.urlBase;
-
-        url += `/${collection}`;
-
-        this.http.post(url, {skip: skip, limit: limit}).map(res => {
-            this.map = res.json().data;
-        })
+    async list(filter: any) {
+        return await this._coolHttp.postAsync(`${this.urlBase}/list`, filter);
     }
 }

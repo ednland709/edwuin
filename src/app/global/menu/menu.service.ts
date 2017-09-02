@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-//import { Http } from '@angular/http'
 import { CoolHttp } from 'angular2-cool-http';
 
 @Injectable()
 export class MenuService {
 
-  constructor(private coolHttp:CoolHttp) { }
+  constructor(private coolHttp: CoolHttp) { }
 
 
   async get(){
