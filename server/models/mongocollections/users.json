@@ -1,0 +1,11 @@
+{
+    "user": "A",
+    "pw": "encrypted",
+    "tenant": "datae",
+    "state": 1,
+    "pn": "Edwuin",
+    "sn": "Elias",
+    "pa": "Cortes",
+    "sa": "valencia",
+    "roles": ["admin", "user", "tadmin"]
+}

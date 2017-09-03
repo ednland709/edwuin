@@ -5,25 +5,25 @@ var MongoHelper = require('../models/core/mongoHelper');
 
 var TokenUtils = {};
 
-TokenUtils.createToken = function (userId, ipAddres, callback) {
+TokenUtils.createToken = await function (userId, ipAddres) {
     //validate that a session it's not created before
-    var sessionInBd = MongoHelper.find("sessions", { sub: userId }, function (res) {
-        if (res.status === 1 && res.data != undefined) {
-            var ms = res.data.exp.diff(moment().unix());
-            var d = moment.duration(ms);
-            var minutesToNow = d.asMinutes();
+    var sessionInBd = MongoHelper.find("sessions", { sub: userId });
+    
+    if (sessionInBd.status === 1 && sessionInBd.data != undefined) {
+        var ms = res.data.exp.diff(moment().unix());
+        var d = moment.duration(ms);
+        var minutesToNow = d.asMinutes();
 
-            if (minutesToNow > 20) {
-                MongoHelper.deleteOne("sessions", { sub: payload.sub }, function (res) { });
-            }
-            else {
-                if (res.data.ip !== ipAddres) {
-                    callback({ status: 0, message: 'Hay otra session iniciada para este usuario, cierre session en el otro equipo o espere aprox 20 minutos' })
-                }
+        if (minutesToNow > 20) {
+            MongoHelper.deleteOne("sessions", { sub: payload.sub });
+        }
+        else {
+            if (res.data.ip !== ipAddres) {
+                return { status: 0, message: 'Hay otra session iniciada para este usuario, cierre session en el otro equipo o espere aprox 20 minutos' };
             }
         }
-    });
-
+    }
+    
     var payload = {
         sub: userId,
         iat: moment().unix(),
@@ -33,9 +33,9 @@ TokenUtils.createToken = function (userId, ipAddres, callback) {
 
     payload.token = jwt.encode(payload, config.TOKEN_SECRET);
     //insert session data
-    MongoHelper.insert("sessions", payload, function (res) {
-        callback(res);
-    });
+    const res = MongoHelper.insert("sessions", payload);
+
+    return payload.token;
 };
 
 TokenUtils.validateToken = function (req, res, next) {

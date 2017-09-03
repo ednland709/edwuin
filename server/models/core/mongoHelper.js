@@ -2,21 +2,18 @@
 var MongoHelper = {};
 
 //Obtenemos todos los usuarios
-MongoHelper.insert = function (db, collection,  doc, callback) {
-    db.collection(collection).insertOne(doc,function (error, result) {
-        if (error) {
-            if (!error.fatal) {
-                callback({ status: 0, error: error });
-                return;
-            }
-            else {
-                throw error;
-            }
+MongoHelper.insert = async function(db, collection, doc) {
+    try{
+        await db.collection(collection).insertOne(doc);
+        return { status: 1};
+    } catch(err) {
+        if (!error.fatal) {
+            return { status: 0, error: error };
         }
         else {
-            callback({ status: 1});
+            throw error;
         }
-    });
+    }
 }
 
 MongoHelper.updateOne = function (db, collection,  filter, newData, callback) {

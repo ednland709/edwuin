@@ -5,7 +5,6 @@ import { DataTableModule, SharedModule } from 'primeng/primeng';
 
 import { ActivatedRoute } from '@angular/router';
 
-
 @Component({
   selector: 'app-dynamics-list',
   templateUrl: './dynamics-list.component.html'
@@ -20,16 +19,12 @@ export class DynamicsListComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private _dynamicsService: DynamicsService
-  ) { }
+  ) {
+    this.route.params.subscribe(params => this.collection = params.collection);
+  }
 
   async ngOnInit() {
-    no toma el collection
-     const collection = +this.route.snapshot.paramMap.get('collection');
-    
     const ladef = await this._dynamicsService.getDefinition(this.collection);
-    // load the data for the collection
-    this.tableData = this._dynamicsService.list({ collection: this.collection, limit: 5, skip: 10 });
-
     // generat columns structure
     if (ladef) {
       this.collectionDef = ladef;
@@ -43,5 +38,9 @@ export class DynamicsListComponent implements OnInit {
         }
       }
     }
+
+    // load the data for the collection
+    this.tableData = this._dynamicsService.list({ collection: this.collection, limit: 5, skip: 10 });
   }
+
 }

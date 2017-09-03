@@ -11,6 +11,7 @@ import { MainComponent } from './main/main.component';
   imports: [
     RouterModule.forChild([
         { path: 'login', component: LoginComponent },
+        { path: 'main', component: MainComponent },
         { path: 'dynamics/:collection', component: DynamicsListComponent },
         { path: 'dynamics/merge/:collection/:id', component: DynamicsMergeComponent }
     ])

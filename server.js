@@ -31,7 +31,8 @@ const dynamics = require('./server/routes/dynamics');
 app.use('/api/dynamics', dynamics);
 const menus = require('./server/routes/global/menus');
 app.use('/api/menu', menus);
-
+const user = require('./server/routes/global/user');
+app.use('/api/user', user);
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
