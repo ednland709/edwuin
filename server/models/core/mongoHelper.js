@@ -6,44 +6,20 @@ MongoHelper.insert = async function(db, collection, doc) {
     return await db.collection(collection).insertOne(doc);
 }
 
-MongoHelper.updateOne = function (db, collection,  filter, newData, callback) {
-    db.collection(collection).updateOne(filter,{$set: newData} ,function (error, docs) {
-        if (error) {
-            if (!error.fatal) {
-                callback({ status: 0, error: error });
-                return;
-            }
-            else {
-                throw error;
-            }
-        }
-        else {
-            callback({ status: 1, data: docs });
-        }
-    });
+MongoHelper.updateOne = async function (db, collection,  filter, newData, callback) {
+    return db.collection(collection).updateOne(filter,{$set: newData} );
 }
 
 MongoHelper.find = async function (db, collection,  filter) {
     return await db.collection(collection).find(filter).toArray();
 }
 
-MongoHelper.findOP = function (db, collection,  filter, options, callback) {
-    db.collection(collection)
-    .find(filter, options)
-    .toArray(function (error, docs) {
-        if (error) {
-            if (!error.fatal) {
-                callback({ status: 0, error: error });
-                return;
-            }
-            else {
-                throw error;
-            }
-        }
-        else {
-            callback({ status: 1, data: docs });
-        }
-    });
+MongoHelper.findOP = async function (db, collection,  filter, options, callback) {
+    return await db.collection(collection).find(filter, options).toArray();
+}
+
+MongoHelper.deleteOne = async function (db, collection,  filter, callback) {
+    return await db.collection(collection).deleteOne(filter);
 }
 
 MongoHelper.findOld = function (db, collection,  filter, callback) {
@@ -64,24 +40,5 @@ MongoHelper.findOld = function (db, collection,  filter, callback) {
         }
     });
 }
-
-
-MongoHelper.deleteOne = function (db, collection,  filter, callback) {
-    db.collection(collection).deleteOne(filter,function (error, docs) {
-        if (error) {
-            if (!error.fatal) {
-                callback({ status: 0, error: error });
-                return;
-            }
-            else {
-                throw error;
-            }
-        }
-        else {
-            callback({ status: 1, data: docs });
-        }
-    });
-}
-
 
 module.exports = MongoHelper;

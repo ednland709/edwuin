@@ -8,35 +8,34 @@ var TokenUtils = {};
 TokenUtils.createToken = async function (db, userId, ipAddres) {
     //validate that a session it's not created before
     var sessionInBd = await MongoHelper.find(db, "sessions", { sub: userId });
+    var payload = {};
+    payload = {
+        sub: userId,
+        iat: new Date(),
+        exp: new Date(new Date().getTime() + 20 * 60 * 1000),
+        ip: ipAddres,
+        token: jwt.encode(payload, config.TOKEN_SECRET)
+    };
     
     if (sessionInBd && sessionInBd.length > 0) {
-        var ms = sessionInBd[0].exp.diff(moment().unix());
-        var d = moment.duration(ms);
-        var minutesToNow = d.asMinutes();
+        var minutesToNow = ( new Date().getTime() - sessionInBd[0].exp.getTime()) / (60 *1000);
 
         if (minutesToNow > 20) {
-            await MongoHelper.deleteOne("sessions", { sub: sessionInBd[0].sub });
+            await MongoHelper.insert(db, "sessionhistory", sessionInBd[0]);
+            await MongoHelper.deleteOne(db, "sessions", { sub: sessionInBd[0].sub });
+            await MongoHelper.insert(db, "sessions", payload);
         }
         else {
             if (sessionInBd[0].ip !== ipAddres) {
                 return { status: 0, message: 'Hay otra session iniciada para este usuario, cierre session en el otro equipo o espere aprox 20 minutos' };
+            } else {
+                payload = sessionInBd[0];
+                payload.exp = new Date(new Date().getTime() + 20 * 60 * 1000);
+                await MongoHelper.updateOne (db, "session",  {sub: payload.sub}, payload);
             }
         }
-    }
-    
-    var payload = {
-        sub: userId,
-        iat: moment().unix(),
-        exp: moment().add(5, "minutes").unix(),
-        ip: ipAddres
-    };
-
-    payload.token = jwt.encode(payload, config.TOKEN_SECRET);
-    //insert session data
-    try {
-        const res = await MongoHelper.insert(db, "sessions", payload);
-    } catch( e ) {
-        throw e;
+    } else {
+        await MongoHelper.insert(db, "sessions", payload);
     }
     return payload.token;
 };
