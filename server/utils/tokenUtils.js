@@ -5,20 +5,20 @@ var MongoHelper = require('../models/core/mongoHelper');
 
 var TokenUtils = {};
 
-TokenUtils.createToken = await function (userId, ipAddres) {
+TokenUtils.createToken = async function (db, userId, ipAddres) {
     //validate that a session it's not created before
-    var sessionInBd = MongoHelper.find("sessions", { sub: userId });
+    var sessionInBd = await MongoHelper.find(db, "sessions", { sub: userId });
     
-    if (sessionInBd.status === 1 && sessionInBd.data != undefined) {
-        var ms = res.data.exp.diff(moment().unix());
+    if (sessionInBd && sessionInBd.length > 0) {
+        var ms = sessionInBd[0].exp.diff(moment().unix());
         var d = moment.duration(ms);
         var minutesToNow = d.asMinutes();
 
         if (minutesToNow > 20) {
-            MongoHelper.deleteOne("sessions", { sub: payload.sub });
+            await MongoHelper.deleteOne("sessions", { sub: sessionInBd[0].sub });
         }
         else {
-            if (res.data.ip !== ipAddres) {
+            if (sessionInBd[0].ip !== ipAddres) {
                 return { status: 0, message: 'Hay otra session iniciada para este usuario, cierre session en el otro equipo o espere aprox 20 minutos' };
             }
         }
@@ -33,8 +33,11 @@ TokenUtils.createToken = await function (userId, ipAddres) {
 
     payload.token = jwt.encode(payload, config.TOKEN_SECRET);
     //insert session data
-    const res = MongoHelper.insert("sessions", payload);
-
+    try {
+        const res = await MongoHelper.insert(db, "sessions", payload);
+    } catch( e ) {
+        throw e;
+    }
     return payload.token;
 };
 
@@ -99,6 +102,10 @@ TokenUtils.destroyToken = function (tokenEncoded) {
 
     MongoHelper.deleteOne("sessions", { sub: payload.sub }, function (res) {
     });
+}
+
+TokenUtils.encrypt = function ( value ) {
+    return jwt.encode(value, config.TOKEN_SECRET);
 }
 
 module.exports = TokenUtils;

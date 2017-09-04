@@ -3,17 +3,7 @@ var MongoHelper = {};
 
 //Obtenemos todos los usuarios
 MongoHelper.insert = async function(db, collection, doc) {
-    try{
-        await db.collection(collection).insertOne(doc);
-        return { status: 1};
-    } catch(err) {
-        if (!error.fatal) {
-            return { status: 0, error: error };
-        }
-        else {
-            throw error;
-        }
-    }
+    return await db.collection(collection).insertOne(doc);
 }
 
 MongoHelper.updateOne = function (db, collection,  filter, newData, callback) {
@@ -33,10 +23,15 @@ MongoHelper.updateOne = function (db, collection,  filter, newData, callback) {
     });
 }
 
-MongoHelper.find = function (db, collection,  filter, callback) {
-    db.collection(collection).find(filter).toArray(function (error, docs) {
+MongoHelper.find = async function (db, collection,  filter) {
+    return await db.collection(collection).find(filter).toArray();
+}
+
+MongoHelper.findOP = function (db, collection,  filter, options, callback) {
+    db.collection(collection)
+    .find(filter, options)
+    .toArray(function (error, docs) {
         if (error) {
-            console.log('entro2');
             if (!error.fatal) {
                 callback({ status: 0, error: error });
                 return;
@@ -51,9 +46,9 @@ MongoHelper.find = function (db, collection,  filter, callback) {
     });
 }
 
-MongoHelper.findOP = function (db, collection,  filter, options, callback) {
+MongoHelper.findOld = function (db, collection,  filter, callback) {
     db.collection(collection)
-    .find(filter, options)
+    .find(filter)
     .toArray(function (error, docs) {
         if (error) {
             if (!error.fatal) {

@@ -1,11 +1,16 @@
 {
-    "user": "A",
-    "pw": "encrypted",
-    "tenant": "datae",
-    "state": 1,
-    "pn": "Edwuin",
-    "sn": "Elias",
-    "pa": "Cortes",
-    "sa": "valencia",
-    "roles": ["admin", "user", "tadmin"]
+    "_id" : ObjectId("59ac5f3a9de21cba33e6ec42"),
+    "user" : "A",
+    "pwd" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.ImEi.kYEHQQhrx0alZ3Cull3x1pwGmbXCAJqGjZEemjdVtTk",
+    "tenant" : "DATAE",
+    "state" : 1,
+    "pn" : "Edwuin",
+    "sn" : "Elias",
+    "pa" : "Cortes",
+    "sa" : "valencia",
+    "roles" : [ 
+        "admin", 
+        "user", 
+        "tadmin"
+    ]
 }

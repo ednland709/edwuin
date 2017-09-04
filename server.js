@@ -53,13 +53,13 @@ const server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-MongoClient.connect("mongodb://localhost:27017/datae", function(err, database) {
+MongoClient.connect("mongodb://localhost:27017/DATAE", function(err, database) {
   if(err) throw err;
 
   db = database;
 
   // Start the application after the database connection is ready
-  server.listen(port, () => console.log(`API running on localhost:${port}`));
+  server.listen(port, () => console.log(`DATAE running on localhost:${port}`));
 });
 
 
