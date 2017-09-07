@@ -11,7 +11,7 @@ con_cuentas.getAll = function (tenant, callback) {
             connection.release();
             if (error) {
                 if (!error.fatal) {
-                    callback({ status: 0, error: error });
+                    callback({ status: 0, message: error.message });
                     return;
                 }
                 else {
@@ -32,7 +32,7 @@ con_cuentas.get = function (cuenta, callback) {
         connection.query(sql, function (error, row) {
             if (error) {
                 if (!error.fatal) {
-                    callback({ status: 0, error: error });
+                    callback({ status: 0, message: error.message });
                     return;
                 }
                 else {

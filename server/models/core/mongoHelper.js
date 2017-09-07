@@ -28,7 +28,7 @@ MongoHelper.findOld = function (db, collection,  filter, callback) {
     .toArray(function (error, docs) {
         if (error) {
             if (!error.fatal) {
-                callback({ status: 0, error: error });
+                callback({ status: 0, message: error.message });
                 return;
             }
             else {

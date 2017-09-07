@@ -1,17 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { CoolHttpModule } from 'angular2-cool-http';
+import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 
 import { MenubarModule } from 'primeng/components/menubar/menubar';
-import {MessageService} from 'primeng/components/common/messageservice';
+import { MessageService } from 'primeng/components/common/messageservice';
 import { GrowlModule } from 'primeng/components/growl/growl';
 
 import { AppComponent } from './global/app/app.component';
 import { MenuComponent } from './global/menu/menu.component';
 import { CoreModule } from './core/core.module';
+import { AppRoutingModule } from './app-routing.module';
 
-import { AppRoutingModule} from './app-routing.module';
-
+import { HttpService } from './global/http.service';
 import { MenuService } from './global/menu/menu.service';
 
 @NgModule({
@@ -25,9 +25,14 @@ import { MenuService } from './global/menu/menu.service';
     CoreModule,
     CoolHttpModule,
     GrowlModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpModule
   ],
-  providers: [MenuService, MessageService],
+  providers: [
+    MenuService,
+    MessageService,
+    HttpService
+  ],
   bootstrap: [AppComponent]
 })
 

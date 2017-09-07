@@ -1,4 +1,3 @@
-[
 {"cpais":"57", "pais":"Colombia", "cdpto": "05", "dpto": "Antioquia", "cmpio": "001", "mpio": "MEDELLÍN"},
 {"cpais":"57", "pais":"Colombia", "cdpto": "05", "dpto": "Antioquia", "cmpio": "002", "mpio": "ABEJORRAL"},
 {"cpais":"57", "pais":"Colombia", "cdpto": "05", "dpto": "Antioquia", "cmpio": "004", "mpio": "ABRIAQUÍ"},
@@ -1113,9 +1112,8 @@
 {"cpais":"57", "pais":"Colombia", "cdpto": "97", "dpto": "Vaupés", "cmpio": "511", "mpio": "PACOA"},
 {"cpais":"57", "pais":"Colombia", "cdpto": "97", "dpto": "Vaupés", "cmpio": "666", "mpio": "TARAIRA"},
 {"cpais":"57", "pais":"Colombia", "cdpto": "97", "dpto": "Vaupés", "cmpio": "777", "mpio": "PAPUNAUA"},
-{"cpais":"57", "pais":"Colombia", "cdpto": "97", "dpto": "Vaupés", "cmpio": "889", "mpio": "YAVARATÉ"},
+{"cpais":"57", "pais":"Colombia", "cdpto": "97", "dpto": "Vaupés", "cmpio": "889", "mpio": "YAVARATÉ"
 {"cpais":"57", "pais":"Colombia", "cdpto": "99", "dpto": "Vichada", "cmpio": "001", "mpio": "PUERTO CARREÑO"},
 {"cpais":"57", "pais":"Colombia", "cdpto": "99", "dpto": "Vichada", "cmpio": "524", "mpio": "LA PRIMAVERA"},
 {"cpais":"57", "pais":"Colombia", "cdpto": "99", "dpto": "Vichada", "cmpio": "624", "mpio": "SANTA ROSALÍA"},
 {"cpais":"57", "pais":"Colombia", "cdpto": "99", "dpto": "Vichada", "cmpio": "773", "mpio": "CUMARIBO"}
-]

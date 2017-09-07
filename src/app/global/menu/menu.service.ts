@@ -1,21 +1,12 @@
 import { Injectable } from '@angular/core';
-import { CoolHttp } from 'angular2-cool-http';
+import { HttpService } from '../http.service';
 
 @Injectable()
 export class MenuService {
 
-  constructor(private coolHttp: CoolHttp) { }
+  constructor(private http: HttpService) { }
 
-
-  async get(){
-    let response = await this.coolHttp.getAsync('menu');
-
-    console.log(response);
-    /*
-    this.http.get('/api/test/').map(res => {
-            this.map = res.json().data;
-        })
-          */
+  async get() {
+    return await this.http.getAsync('menu');
   }
-
 }

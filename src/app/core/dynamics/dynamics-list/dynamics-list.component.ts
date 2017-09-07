@@ -26,8 +26,8 @@ export class DynamicsListComponent implements OnInit {
   async ngOnInit() {
     const ladef = await this._dynamicsService.getDefinition(this.collection);
     // generat columns structure
-    if (ladef) {
-      this.collectionDef = ladef;
+    if (ladef.status === 1) {
+      this.collectionDef = ladef.data;
       for (const field of this.collectionDef.fields) {
         for (const control of field.controls) {
           const pos = this.collectionDef.projection.indexof(control.name)
@@ -42,5 +42,4 @@ export class DynamicsListComponent implements OnInit {
     // load the data for the collection
     this.tableData = this._dynamicsService.list({ collection: this.collection, limit: 5, skip: 10 });
   }
-
 }

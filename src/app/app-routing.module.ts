@@ -5,17 +5,17 @@ import { CoreModule } from './core/core.module'
 import { Routes, RouterModule } from '@angular/router';
 
 const ROUTES: Routes = [
-  //{ path: '', redirectTo: 'login', pathMatch: 'full'},
+  { path: '', redirectTo: 'core/login', pathMatch: 'full'},
   {path: 'core', loadChildren: 'app/core/core.module#CoreModule'}
-  
-  //{ path: '', children: []}
+
+  // { path: '', children: []}
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(
-      ROUTES, 
-      //{enableTracing: true}
+      ROUTES,
+      // {enableTracing: true}
     )
   ],
   exports: [RouterModule]

@@ -3,7 +3,7 @@ import { CoolHttp} from 'angular2-cool-http';
 
 
 @Injectable()
-export class LogginService {
+export class LoginService {
 
   constructor( private _coolHttp: CoolHttp) { }
 

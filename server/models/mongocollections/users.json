@@ -1,6 +1,6 @@
 {
     "_id" : ObjectId("59ac5f3a9de21cba33e6ec42"),
-    "user" : "A",
+    "email" : "A",
     "pwd" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.ImEi.kYEHQQhrx0alZ3Cull3x1pwGmbXCAJqGjZEemjdVtTk",
     "tenant" : "DATAE",
     "state" : 1,
@@ -14,3 +14,5 @@
         "tadmin"
     ]
 }
+
+db.users.createIndex( {email: 1, tenant: 1}, {unique: true, name: 'userkey'})

@@ -19,7 +19,7 @@ router.get('/Get/:cuenta', (req, res) => {
       ;
   }
   catch (err) {
-    res.status(200).json({status: 1, error: err});
+    res.status(200).json({status: 0, message: err.message});
   }
 });
 

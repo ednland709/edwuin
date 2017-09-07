@@ -63,7 +63,7 @@ TokenUtils.validateToken = function (req, res, next) {
     if (payload.ip !== currentIp) {
         return res
             .status(200)
-            .send({ status: 0, message: "El token es invalido" });
+            .send({ status: 0, message: "Token invalido" });
     }
 
     var ms = payload.exp.diff(moment().unix());
@@ -77,7 +77,7 @@ TokenUtils.validateToken = function (req, res, next) {
             MongoHelper.deleteOne("sessions", { sub: payload.sub }, function (res) {
                 return res
                     .status(200)
-                    .send({ status: 0, message: "El token ha expirado" });
+                    .send({ status: 0, message: "Token invalido" });
             });
         }
         else {

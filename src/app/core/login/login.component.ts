@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 import { InputTextModule } from 'primeng/primeng';
-import { LogginService } from './loggin.service';
+import { LoginService } from './login.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,14 +13,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  data: any = {
-    user: '',
-    pw: '',
-    tenant: ''
+  public formData: any = {
+    email: 'ednland@hotmail.com',
+    pw: 'a',
+    tenant: 'datae'
   };
 
   constructor(
-    private _logginService: LogginService,
+    private _loginService: LoginService,
+    private messageService: MessageService,
     private router: Router
   ) { }
 
@@ -25,19 +29,18 @@ export class LoginComponent implements OnInit {
   }
 
   async LogIn() {
-    if (this.data.user && this.data.pw && this.data.tenant) {
-      const res = await this._logginService.validateUser(this.data);
+    if (this.formData.email && this.formData.pw && this.formData.tenant) {
+      const res = await this._loginService.validateUser(this.formData);
 
-      if (res) {
+      if (res.status === 1) {
+        localStorage.setItem('currentUser', JSON.stringify(res));
+        this.router.navigate(['/core/main']);
+
+      } else {
         if (res.message) {
-
-        } else {
-          // save the object anf go on
-          localStorage.setItem('currentUser', res);
-          this.router.navigate(['/core/main']);
+          this.messageService.add({ severity: 'error', summary: 'DATAE', detail: res.message });
         }
       }
     }
   }
-
 }
