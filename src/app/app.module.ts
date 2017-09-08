@@ -23,7 +23,6 @@ import { MenuService } from './global/menu/menu.service';
     BrowserModule,
     MenubarModule,
     CoreModule,
-    CoolHttpModule,
     GrowlModule,
     AppRoutingModule,
     HttpModule

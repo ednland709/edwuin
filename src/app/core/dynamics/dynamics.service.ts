@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CoolHttp } from 'angular2-cool-http';
 import 'rxjs/add/operator/map';
+import { HttpService } from '../../global/http.service';
 
 @Injectable()
 export class DynamicsService {
@@ -8,10 +8,10 @@ export class DynamicsService {
     str: string;
     map: any;
 
-    constructor( private _coolHttp: CoolHttp) { }
+    constructor( private _http: HttpService) { }
 
     async getDefinition(collection: string) {
-        return this._coolHttp.getAsync(`${this.urlBase}definitionnt/${collection}`);
+        return this._http.getAsync(`${this.urlBase}definitionnt/${collection}`);
     }
 
     async get(collection: string, id: number) {
@@ -21,6 +21,6 @@ export class DynamicsService {
     }
 
     async list(filter: any) {
-        return await this._coolHttp.postAsync(`${this.urlBase}/list`, filter);
+        return await this._http.postAsync(`${this.urlBase}/list`, filter);
     }
 }

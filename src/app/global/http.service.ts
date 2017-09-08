@@ -8,17 +8,60 @@ import {
     Headers
 } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import { MessageService } from 'primeng/components/common/messageservice';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class HttpService {
-
-    constructor(private http: Http) { }
+    private _token = null;
+    constructor(
+        private http: Http,
+        private messageService: MessageService,
+        private _router: Router
+    ) { }
 
     async getAsync(url: string, options?: RequestOptionsArgs): Promise<any> {
         try {
             url = this.updateUrl(url);
             const response = await this.http.get(url, this.getRequestOptionArgs(options)).toPromise();
-            return response.json().data;
+            const res = response.json();
+
+            if (response.status === 200) {
+                if (res.status === 0) {
+                    if (res.message) {
+                        this.messageService.add({ severity: 'error', summary: 'DATAE', detail: res.message });
+                    }
+                }
+            } else {
+                this.messageService.add({ severity: 'error', summary: 'DATAE', detail: 'problema con el servidor, falta codificar' });
+            }
+            return res;
+        } catch (error) {
+            return Promise.reject(error.message || error);
+        }
+    }
+
+    async postAsync(url: string, body: any, options?: RequestOptionsArgs): Promise<any> {
+        try {
+            url = this.updateUrl(url);
+            const response = await this.http.post(url, body, this.getRequestOptionArgs(options)).toPromise();
+            const res = response.json();
+
+            if (response.status === 200) {
+                if (res.status === 0) {
+                    if (res.message) {
+                        this.messageService.add({ severity: 'error', summary: 'DATAE', detail: res.message });
+                    }
+
+                    if (res.message === 'token invalido') {
+                        this._router.navigate(['/core/main']);
+                    };
+                }
+            } else {
+                this.messageService.add({ severity: 'error', summary: 'DATAE', detail: 'problema con el servidor, falta codificar' });
+            }
+
+            return res;
         } catch (error) {
             return Promise.reject(error.message || error);
         }
@@ -36,7 +79,13 @@ export class HttpService {
             options.headers = new Headers();
         }
         options.headers.append('Content-Type', 'application/json');
-
+        if (this._token) {
+            options.headers.append('token', this._token);
+        }
         return options;
+    }
+
+    public registerToken(token) {
+        this._token = token;
     }
 }

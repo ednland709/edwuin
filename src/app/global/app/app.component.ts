@@ -15,21 +15,17 @@ export class AppComponent {
   msgs: Message[] = [];
 
   constructor(
-    private router: Router,
-    private growl: GrowlModule,
-    private messageService: MessageService
+    private _router: Router,
+    private growl: GrowlModule
   ) { }
 
   ngOnInit() {
-    this.messageService.add({ severity: 'success', summary: 'Service Message', detail: 'Via MessageService' });
-
     if (localStorage.getItem('currentUser')) {
-      localStorage.clear();
       const currentUser: any = JSON.parse(localStorage.getItem('currentUser'));
       if (currentUser === undefined || currentUser === null) {
-        this.router.navigate(['/core/login']);
+        this._router.navigate(['/core/login']);
       } else {
-        this.router.navigate(currentUser.defaultPage);
+        this._router.navigate(['/core/main']);
       }
     }
   }

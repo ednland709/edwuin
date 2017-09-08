@@ -3,6 +3,7 @@ var router = express.Router();
 var TokenUtils = require('../../utils/tokenUtils');
 var theModel = require('../../models/global/user.js');
 var requestIp = require('request-ip');
+var menu = require('../../models/global/menu');
 
 router.get('', (req, res) => {
     var db = req.db;
@@ -21,9 +22,10 @@ router.post('/validate', async (req, res) => {
             if (data && data.length > 0) {
                 var e = TokenUtils.encrypt(req.body.pw);
                 if (data[0].pw == e) {
-                    // if user exists generate the token
                     var clientIp = requestIp.getClientIp(req); // on localhost > 127.0.0.1
                     data.token = await TokenUtils.createToken(db, data[0].email.toUpperCase(), clientIp);
+                    data.menu = await menu.get(db, req.body.email, req.body.tenant);
+                    
                     res.status(200).json({status: 1, data: data});
                     
                 } else {

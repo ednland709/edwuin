@@ -12,6 +12,9 @@ import { MainComponent } from './main/main.component';
 // services
 import { DynamicsService } from './dynamics/dynamics.service';
 import { LoginService } from './login/login.service';
+import { HttpService } from '../global/http.service';
+
+
 
 @NgModule({
   imports: [
@@ -30,7 +33,8 @@ import { LoginService } from './login/login.service';
   ],
   providers: [
     DynamicsService,
-    LoginService
+    LoginService,
+    HttpService
   ],
 exports: [ ]
 })
