@@ -13,7 +13,7 @@ import { MainComponent } from './main/main.component';
 import { DynamicsService } from './dynamics/dynamics.service';
 import { LoginService } from './login/login.service';
 import { HttpService } from '../global/http.service';
-
+import { MenuObservable } from '../global/menu/menu.observable';
 
 
 @NgModule({
@@ -34,7 +34,8 @@ import { HttpService } from '../global/http.service';
   providers: [
     DynamicsService,
     LoginService,
-    HttpService
+    HttpService,
+    MenuObservable
   ],
 exports: [ ]
 })

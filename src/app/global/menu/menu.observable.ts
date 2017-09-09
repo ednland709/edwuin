@@ -1,7 +1,14 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core'
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
-export class MenuEventsManager {
-    public showMenu(): EventEmitter<any> = new EventEmitter();
-    public hideMenu(): EventEmitter<any> = new EventEmitter();
+export class MenuObservable {
+    // Observable navItem source
+    private _menuItemSource = new BehaviorSubject<any>(0);
+    // Observable navItem stream
+    navItem$ = this._menuItemSource.asObservable();
+    // service command
+    changeMenu(theList) {
+        this._menuItemSource.next(theList);
+    }
 }

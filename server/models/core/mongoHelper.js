@@ -14,6 +14,10 @@ MongoHelper.find = async function (db, collection,  filter) {
     return await db.collection(collection).find(filter).toArray();
 }
 
+MongoHelper.findOne = async function (db, collection,  filter) {
+    return await db.collection(collection).findOne(filter);
+}
+
 MongoHelper.findOP = async function (db, collection,  filter, options, callback) {
     return await db.collection(collection).find(filter, options).toArray();
 }

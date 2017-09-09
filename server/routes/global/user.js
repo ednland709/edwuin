@@ -3,7 +3,7 @@ var router = express.Router();
 var TokenUtils = require('../../utils/tokenUtils');
 var theModel = require('../../models/global/user.js');
 var requestIp = require('request-ip');
-var menu = require('../../models/global/menu');
+var menu = require('../../models/global/menus.js');
 
 router.get('', (req, res) => {
     var db = req.db;
@@ -19,11 +19,11 @@ router.post('/validate', async (req, res) => {
         
         if (req.body.email && req.body.pw && req.body.tenant) {
             const data = await theModel.get(db, req.body.email.toUpperCase(), req.body.tenant.toUpperCase());
-            if (data && data.length > 0) {
+            if (data) {
                 var e = TokenUtils.encrypt(req.body.pw);
-                if (data[0].pw == e) {
+                if (data.pw == e) {
                     var clientIp = requestIp.getClientIp(req); // on localhost > 127.0.0.1
-                    data.token = await TokenUtils.createToken(db, data[0].email.toUpperCase(), clientIp);
+                    data.token = await TokenUtils.createToken(db, data.email.toUpperCase(), clientIp);
                     data.menu = await menu.get(db, req.body.email, req.body.tenant);
                     
                     res.status(200).json({status: 1, data: data});

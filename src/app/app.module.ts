@@ -12,7 +12,7 @@ import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 
 import { HttpService } from './global/http.service';
-import { MenuService } from './global/menu/menu.service';
+import { MenuObservable } from './global/menu/menu.observable';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import { MenuService } from './global/menu/menu.service';
     HttpModule
   ],
   providers: [
-    MenuService,
+    MenuObservable,
     MessageService,
     HttpService
   ],
