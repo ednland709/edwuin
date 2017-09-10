@@ -4,7 +4,7 @@ import { GrowlModule } from 'primeng/components/growl/growl';
 
 import { Message } from 'primeng/components/common/api';
 import { MessageService } from 'primeng/components/common/messageservice';
-import { MenuObservable } from '../../global/menu/menu.observable';
+import { MenuObservable } from '../../core/menu/menu.observable';
 
 
 @Component({

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { HttpService } from '../../global/http.service';
+import { HttpService } from '../../core/http.service';
 
 @Injectable()
 export class DynamicsService {
