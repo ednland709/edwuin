@@ -1,28 +1,31 @@
 var jwt = require('jwt-simple');
+//var jwtDecoder = require('jwt')
 var config = require('../config');
 var moment = require('moment');
 var MongoHelper = require('../models/core/mongoHelper');
 
 var TokenUtils = {};
 
-TokenUtils.createToken = async function (db, userId, ipAddres) {
+TokenUtils.createToken = async function (db, userId, ipAddres, tenant) {
     //validate that a session it's not created before
-    var sessionInBd = await MongoHelper.find(db, "sessions", { sub: userId });
-    var payload = {};
-    payload = {
+    var sessionInBd = await MongoHelper.find(db, "sessions", { sub: userId, tenant: tenant });
+    var payload = {
         sub: userId,
+        tenant: tenant,
         iat: new Date(),
         exp: new Date(new Date().getTime() + 20 * 60 * 1000),
         ip: ipAddres,
-        token: jwt.encode(payload, config.TOKEN_SECRET)
     };
-    
+
+    var strtoken = jwt.encode(payload, config.TOKEN_SECRET)
+    payload.token = strtoken;
+
     if (sessionInBd && sessionInBd.length > 0) {
         var minutesToNow = ( new Date().getTime() - sessionInBd[0].exp.getTime()) / (60 *1000);
 
         if (minutesToNow > 20) {
             await MongoHelper.insert(db, "sessionhistory", sessionInBd[0]);
-            await MongoHelper.deleteOne(db, "sessions", { sub: sessionInBd[0].sub });
+            await MongoHelper.deleteOne(db, "sessions", { sub: sessionInBd[0].sub, tenant });
             await MongoHelper.insert(db, "sessions", payload);
         }
         else {
@@ -49,8 +52,8 @@ TokenUtils.validateToken = function (req, res, next) {
 
     var payload = {};
     try {
-        var tokenEncoded = jwt.decode(req.headers['token'], config.TOKEN_SECRET);
-        payloadF = jwt.decode(tokenEncoded, config.TOKEN_SECRET);
+        var tokenEncoded = req.headers['token'];
+        payload = jwt.decode(tokenEncoded, config.TOKEN_SECRET);
     }
     catch(error){
         return res
@@ -74,7 +77,7 @@ TokenUtils.validateToken = function (req, res, next) {
     if (minutesToNow > 0) {
         if (minutesToNow > 20) {
             //droop session
-            MongoHelper.deleteOne("sessions", { sub: payload.sub }, function (res) {
+            MongoHelper.deleteOne("sessions", { sub: payload.sub, tenant: payload.tenant }, function (res) {
                 return res
                     .status(200)
                     .send({ status: 0, message: "Token invalido" });
@@ -82,8 +85,8 @@ TokenUtils.validateToken = function (req, res, next) {
         }
         else {
             //renew the token
-            MongoHelper.deleteOne("sessions", { sub: payload.sub, ip: payload.ip }, function (res) {
-                this.createToken(payload.sub, currentIp, function (res) {
+            MongoHelper.deleteOne("sessions", { sub: payload.sub, tenant: payload.tenant }, function (res) {
+                this.createToken(payload.sub, currentIp, tenant, function (res) {
                     if (res === 0) {
                         return res.status(200).send(res);
                     }
@@ -96,11 +99,12 @@ TokenUtils.validateToken = function (req, res, next) {
     next();
 }
 
-TokenUtils.destroyToken = function (tokenEncoded) {
+TokenUtils.destroyToken = async function (db, tokenEncoded) {
     var payload = jwt.decode(tokenEncoded, config.TOKEN_SECRET);
 
-    MongoHelper.deleteOne("sessions", { sub: payload.sub }, function (res) {
-    });
+    var sessionInBd = await MongoHelper.find(db, "sessions", { sub: payload.sub, tenant: payload.tenant });
+    await MongoHelper.insert(db, "sessionhistory", sessionInBd[0]);
+    await MongoHelper.deleteOne(db, "sessions", { sub: sessionInBd[0].sub , tenant: sessionInBd[0].tenant});
 }
 
 TokenUtils.encrypt = function ( value ) {

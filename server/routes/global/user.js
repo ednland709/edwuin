@@ -12,11 +12,18 @@ router.get('', (req, res) => {
 
 });
 
+router.delete('', async (req, res) => {
+    try {
+        await TokenUtils.destroyToken(req.bd, req.header.token);
+    } catch (e) {
+        res.status(200).json({ status: 0, message: e.message });
+    }
+})
 
 router.post('/validate', async (req, res) => {
     try {
         var db = req.db;
-        
+
         if (req.body.email && req.body.pw && req.body.tenant) {
             const data = await theModel.get(db, req.body.email.toUpperCase(), req.body.tenant.toUpperCase());
             if (data) {
@@ -25,9 +32,9 @@ router.post('/validate', async (req, res) => {
                     var clientIp = requestIp.getClientIp(req); // on localhost > 127.0.0.1
                     data.token = await TokenUtils.createToken(db, data.email.toUpperCase(), clientIp);
                     data.menu = await menu.get(db, req.body.email, req.body.tenant);
-                    
-                    res.status(200).json({status: 1, data: data});
-                    
+
+                    res.status(200).json({ status: 1, data: data });
+
                 } else {
                     res.status(200).json({ status: 0, message: 'contraseña invalida' });
                 }

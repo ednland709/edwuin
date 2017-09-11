@@ -67,6 +67,27 @@ export class HttpService {
         }
     }
 
+    async deleteAsync(url: string, options?: RequestOptionsArgs) {
+        try {
+            url = this.updateUrl(url);
+            const response = await this.http.delete(url, this.getRequestOptionArgs(options)).toPromise();
+            const res = response.json();
+
+            if (response.status === 200) {
+                if (res.status === 0) {
+                    if (res.message) {
+                        this.messageService.add({ severity: 'error', summary: 'DATAE', detail: res.message });
+                    }
+                }
+            } else {
+                this.messageService.add({ severity: 'error', summary: 'DATAE', detail: 'problema con el servidor, falta codificar' });
+            }
+            return res;
+        } catch (error) {
+            return Promise.reject(error.message || error);
+        }
+    }
+
     private updateUrl(req: string) {
         return 'http://localhost:3000/api/' + req;
     }

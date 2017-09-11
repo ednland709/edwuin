@@ -4,8 +4,8 @@ var table = {};
 var obj;
 
 //Obtenemos todos los usuarios
-table.get = async function (db, user, tenant) {
-    return await MongoHelper.findOne(db, "users",{ email: user, tenant : tenant });
+table.get = async function (db, email, tenant) {
+    return await MongoHelper.findOne(db, "users", { email: email, tenant: tenant });
     //MongoHelper.find(db, "users", {user: "A"}, function(data){ console.log(data); })
 }
 

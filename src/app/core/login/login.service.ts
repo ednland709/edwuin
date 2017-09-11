@@ -10,10 +10,13 @@ export class LoginService {
 
   async validateUser(data) {
     return this._http.postAsync(`user/validate`, data);
-
   }
 
   registerToken(token) {
     this._http.registerToken(token);
+  }
+
+  async logout() {
+    return this._http.deleteAsync('user')
   }
 }

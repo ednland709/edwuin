@@ -4,8 +4,7 @@ import { GrowlModule } from 'primeng/components/growl/growl';
 
 import { Message } from 'primeng/components/common/api';
 import { MessageService } from 'primeng/components/common/messageservice';
-import { MenuObservable } from '../../core/menu/menu.observable';
-
+import { HttpService } from '../http.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +17,7 @@ export class AppComponent {
   constructor(
     private _router: Router,
     private growl: GrowlModule,
-    private _menuObservable: MenuObservable
+    private _httpService: HttpService
   ) { }
 
   ngOnInit() {
@@ -27,8 +26,8 @@ export class AppComponent {
       if (currentUser === undefined || currentUser === null) {
         this._router.navigate(['/core/login']);
       } else {
-        this._menuObservable.changeMenu(currentUser.menu);
         this._router.navigate(['/core/main']);
+        this._httpService.registerToken(currentUser.token);
       }
     }
   }
