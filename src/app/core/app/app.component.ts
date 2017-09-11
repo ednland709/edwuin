@@ -11,7 +11,7 @@ import { HttpService } from '../http.service';
   templateUrl: './app.component.html'
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   msgs: Message[] = [];
 
   constructor(
