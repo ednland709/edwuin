@@ -42,8 +42,4 @@ export class LoginComponent implements OnInit {
       }
     }
   }
-
-  test() {
-    this._menuObservable.changeMenu({val: 'test'});
-  }
 }

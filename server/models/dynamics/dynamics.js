@@ -1,18 +1,14 @@
 var MongoHelper = require('../../models/core/mongoHelper');
 
 var table = {};
-var obj;
 
 //Obtenemos todos los usuarios
-table.getCollectionDefinitionNT = function (db, collection, callback) {
-    MongoHelper.find(db, 'collectiondef', { collection: collection } , function(data){
-        callback(data);
-    });
+table.getCollectionDefinition = async function (db, pcollection) {
+    //var res = await MongoHelper.findOne(db, 'collectiondef', { collection: pcollection });
+    return await MongoHelper.findOne(db, "collectiondef", { collection: pcollection });
 }
 
-table.getList = function (db, collection, filter, options, callback) {
-    MongoHelper.findOP(db, collection, filter, options, function(data){
-        callback(data);
-    });
+table.getList = async function (db, collection, filter, options) {
+    return await MongoHelper.findOP(db, collection, filter, options);
 }
 module.exports = table;

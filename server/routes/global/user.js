@@ -5,16 +5,10 @@ var theModel = require('../../models/global/user.js');
 var requestIp = require('request-ip');
 var menu = require('../../models/global/menus.js');
 
-router.get('', (req, res) => {
-    var db = req.db;
-    var userData = req.data;
-    res.status(200).json({ status: 1, data: "data" });
-
-});
-
 router.delete('', async (req, res) => {
     try {
-        await TokenUtils.destroyToken(req.bd, req.header.token);
+        await TokenUtils.destroyToken(req.db, req.headers.token);
+        res.status(200).json({ status: 1})
     } catch (e) {
         res.status(200).json({ status: 0, message: e.message });
     }
@@ -30,7 +24,7 @@ router.post('/validate', async (req, res) => {
                 var e = TokenUtils.encrypt(req.body.pw);
                 if (data.pw == e) {
                     var clientIp = requestIp.getClientIp(req); // on localhost > 127.0.0.1
-                    data.token = await TokenUtils.createToken(db, data.email.toUpperCase(), clientIp);
+                    data.token = await TokenUtils.createToken(db, data.email.toUpperCase(), clientIp, req.body.tenant);
                     data.menu = await menu.get(db, req.body.email, req.body.tenant);
 
                     res.status(200).json({ status: 1, data: data });

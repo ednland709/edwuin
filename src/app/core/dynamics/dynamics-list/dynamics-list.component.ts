@@ -24,22 +24,27 @@ export class DynamicsListComponent implements OnInit {
   }
 
   async ngOnInit() {
-    const ladef = await this._dynamicsService.getDefinition(this.collection);
-    // generat columns structure
-    if (ladef.status === 1) {
-      this.collectionDef = ladef.data;
-      for (const field of this.collectionDef.fields) {
-        for (const control of field.controls) {
-          const pos = this.collectionDef.projection.indexof(control.name)
-          if (pos) {
-            const item = { 'field': control.name, 'header': control.title };
-            this.cols.push(item);
+    try {
+      const ladef = await this._dynamicsService.getDefinition(this.collection);
+      // generat columns structure
+      if (ladef.status === 1) {
+        this.collectionDef = ladef.data;
+        for (const field of this.collectionDef.fields) {
+          for (const control of field.controls) {
+            const pos = this.collectionDef.projection.indexof(control.name)
+            if (pos) {
+              const item = { 'field': control.name, 'header': control.title };
+              this.cols.push(item);
+            }
           }
         }
       }
+
+      // load the data for the collection
+      this.tableData = this._dynamicsService.list({ collection: this.collection, limit: 5, skip: 10 });
+    } catch (e) {
+      console.error(e);
     }
 
-    // load the data for the collection
-    this.tableData = this._dynamicsService.list({ collection: this.collection, limit: 5, skip: 10 });
   }
 }

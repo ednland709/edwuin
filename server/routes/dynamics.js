@@ -3,30 +3,28 @@ var router = express.Router();
 var TokenUtils = require('../utils/tokenUtils');
 var dynamicsModel = require('../models/dynamics/dynamics.js');
 
-//router.get('/definitionNT/:collection',TokenUtils.validateToken,  (req, res) => {
-    router.post('',  (req, res) => {
-        res.status(200).json( {status:0, message: 'not implemented yet'} );
-        
-    });
-    
-
-router.post('/list', TokenUtils.validateToken, (req, res) => {
-    var db = req.db;
-    var options = {"limit": req.body.limit, "skip": req.body.skip};
-    var collection = req.body.collection;
-
-    dynamicsModel.getList(db, collection, {}, options, function (data) {
-        res.status(200).json( data );
-    });
+router.post('', async (req, res) => {
+    res.status(200).json({ status: 0, message: 'test' });
 });
 
-router.get('/definitionNT/:collection', TokenUtils.validateToken, (req, res) => {
-    var collection = req.params.collection;
-    var db = req.db;
-    dynamicsModel.getCollectionDefinitionNT(db, collection, function (data) {
-        res.status(200).json(data);
-    });
+router.post('/list', TokenUtils.validateToken, async (req, res) => {
+    try {
+        var options = { "limit": req.body.limit, "skip": req.body.skip };
+        var res = await dynamicsModel.getList(req.db, req.body.collection, {}, options);
+        res.status(200).json(res);
+    } catch (e) {
+        res.status(200).json({ status: 0, message: e.message });
+    }
 });
 
+router.post('/definition', async (req, res) => {
+    try {
+        var ret = await dynamicsModel.getCollectionDefinition(req.db, req.body.collection);
+        res.status(200).json({ status: 1, data: ret });
+    } catch (e) {
+        res.status(200).json({ status: 0, message: e.message });
+    }
+
+});
 
 module.exports = router;

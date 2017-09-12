@@ -11,7 +11,7 @@ export class DynamicsService {
     constructor( private _http: HttpService) { }
 
     async getDefinition(collection: string) {
-        return this._http.getAsync(`${this.urlBase}definitionnt/${collection}`);
+        return await this._http.getAsync(`${this.urlBase}definitionnt/${collection}`);
     }
 
     async get(collection: string, id: number) {

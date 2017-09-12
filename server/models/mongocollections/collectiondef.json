@@ -1,6 +1,6 @@
 {
     "_id" : ObjectId("5982a2b32e0ef2f4c0a4e50c"),
-    "collection" : "empresa",
+    "collection" : "tenants",
     "label" : "Empresa",
     "des": "Empresas creadas en el sistema",
     "projection" : {

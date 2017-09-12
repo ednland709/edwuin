@@ -3,15 +3,12 @@ var router = express.Router();
 var TokenUtils = require('../../utils/tokenUtils');
 var menuModel = require('../../models/global/menus.js');
 
-router.get('',  TokenUtils.validateToken, (req, res) => {
-    var db = req.db;
-    var user = 'a';
-    var tenant = 'datae';
-
-    menuModel.get(db, user, tenant, function (data) {
-        res.status(200).json(data);
-    });
-
+router.get('', TokenUtils.validateToken, async (req, res) => {
+    try {
+        return await menuModel.get(req.db, 'a', 'datae');
+    } catch (e) {
+        res.status(200).json({ status: 0, message: e.message });
+    }
 });
 
 module.exports = router;

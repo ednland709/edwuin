@@ -26,17 +26,11 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   async logout() {
     try {
-      const currentUser: any = JSON.parse(localStorage.getItem('currentUser'));
-
-      const userData = {
-        email: currentUser.email,
-        tenant: currentUser.tenant
-      };
       await this._loginService.logout();
-      localStorage.clear();
-      this._router.navigate(['/core/login']);
       this.items = [];
       this.visible = false;
+      localStorage.clear();
+      this._router.navigate(['/core/login']);
     } catch (e) {
       console.log(e);
     }
