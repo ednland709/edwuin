@@ -8,10 +8,10 @@ export class DynamicsService {
     str: string;
     map: any;
 
-    constructor( private _http: HttpService) { }
+    constructor(private _http: HttpService) { }
 
     async getDefinition(collection: string) {
-        return await this._http.getAsync(`${this.urlBase}definitionnt/${collection}`);
+        return await this._http.postAsync(`${this.urlBase}definition`, { collection: collection });
     }
 
     async get(collection: string, id: number) {

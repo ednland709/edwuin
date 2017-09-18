@@ -17,7 +17,7 @@ router.post('/list', TokenUtils.validateToken, async (req, res) => {
     }
 });
 
-router.post('/definition', async (req, res) => {
+router.post('/definition', TokenUtils.validateToken,  async (req, res) => {
     try {
         var ret = await dynamicsModel.getCollectionDefinition(req.db, req.body.collection);
         res.status(200).json({ status: 1, data: ret });

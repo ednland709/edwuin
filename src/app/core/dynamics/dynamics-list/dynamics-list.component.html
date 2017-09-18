@@ -3,6 +3,7 @@
     <br>
     <p>{{collectionDef}}</p>
 
+<button (click)='nuevo()'>Nuevo</button>
 
 <p-dataTable [value]="cars">
   <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"></p-column>

@@ -72,21 +72,20 @@ TokenUtils.validateToken = async function (req, res, next) {
     if (milliseconds > 0) {
         if (minutesToNow > 20) {
             //droop session
-            var res = await MongoHelper.deleteOne("sessions", { sub: payload.sub, tenant: payload.tenant })
+            await MongoHelper.deleteOne(req.db, "sessions", { sub: payload.sub, tenant: payload.tenant })
             return res.status(200).send({ status: 0, message: "Token vencido" });
         }
         else {
             //renew the token
-            var res = await MongoHelper.deleteOne("sessions", { sub: payload.sub, tenant: payload.tenant });
-            var ret = await this.createToken(payload.sub, currentIp, tenant)
-            if (res === 0) {
-                return res.status(200).send(res);
+            var ret = await MongoHelper.deleteOne(req.db, "sessions", { sub: payload.sub, tenant: payload.tenant });
+            var ret2 = await this.createToken(req.db, payload.sub, currentIp, tenant)
+            if (ret === 0 || ret2 === 0) {
+                return res.status(200).send({ status: 0, message: 'no se puede crear la sesion' });
             }
         }
-
-        req.user = payload.sub;
-        next();
     }
+    req.user = payload.sub;
+    next();
 }
 
 TokenUtils.destroyToken = async function (db, tokenEncoded) {

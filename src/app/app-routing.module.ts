@@ -16,7 +16,7 @@ const ROUTES: Routes = [
   { path: 'core/login', component: LoginComponent },
   { path: 'core/main', component: MainComponent },
   { path: 'core/dynamics/:collection', component: DynamicsListComponent },
-  { path: 'core/dynamics/merge/:collection/:id', component: DynamicsMergeComponent }
+  { path: 'core/dynamics/merge/:data', component: DynamicsMergeComponent }
   // { path: '', children: []}
 ];
 

@@ -1,3 +1,23 @@
-<p>
-  dynamics-merge works!
-</p>
+<form (ngSubmit)=save() novalidate="novalidate">
+  <h2>{{definition.label}}</h2>
+  <p>{{definition.des}}</p>
+  <p-tabView>
+    <p-tabPanel *ngFor="let tab of definition.tabs" header="{{tab.name}}">
+      <div class="form-group row has-danger" *ngFor="let control of tab.controls">
+        <label for="{{control.name}}" class="col-sm-2 col-form-label">{{control.title}}</label>
+        <div class="col-sm-10">
+          <input type="email" *ngIf="control.type=='eml'" name="{{control.name}}" id="{{control.name}}" #email="ngModel" [(ngModel)]="formData.email" class="form-control"
+            placeholder="{{control.title}}" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+          <input type="number" *ngIf="control.type=='int'" name="{{control.name}}" id="{{control.name}}" [(ngModel)]="formData.email"
+            class="form-control" placeholder="{{control.title}}">
+
+            <select *ngIf="control.type=='elist'" name="cars" id="{{control.name}}" class="form-control" >
+              <option *ngFor="let opc of control.list" value="{{opc}}">{{opc}}</option>
+            </select>
+        </div>
+      </div>
+    </p-tabPanel>
+  </p-tabView>
+
+  <button type="submit" class="btn btn-success">Aceptar</button>
+</form>

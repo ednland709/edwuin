@@ -49,13 +49,18 @@ export class HttpService {
 
             if (response.status === 200) {
                 if (res.status === 0) {
-                    if (res.message) {
-                        this.messageService.add({ severity: 'error', summary: 'DATAE', detail: res.message });
-                    }
 
                     if (res.message === 'token invalido') {
-                        this._router.navigate(['/core/main']);
-                    };
+                        localStorage.clear();
+                        this.messageService.add({ severity: 'error', summary: 'DATAE', detail: 'sesion invalida, ingrese de nuevo' });
+                        this._router.navigate(['/core/login']);
+                    } else if (res.message === 'Token vencido') {
+                        localStorage.clear();
+                        this.messageService.add({ severity: 'error', summary: 'DATAE', detail: 'Su sesionn expiro, ingrese de nuevo' });
+                        this._router.navigate(['/core/login']);
+                    } else if (res.message) {
+                        this.messageService.add({ severity: 'error', summary: 'DATAE', detail: res.message });
+                    }
                 }
             } else {
                 this.messageService.add({ severity: 'error', summary: 'DATAE', detail: 'problema con el servidor, falta codificar' });
@@ -63,7 +68,20 @@ export class HttpService {
 
             return res;
         } catch (error) {
-            return Promise.reject(error.message || error);
+            if (error.status === 404) {
+                this.messageService.add({ severity: 'error', summary: 'DATAE', detail: 'solicitud invalida' });
+            } else if (error.status === 400) {
+                this.messageService.add({ severity: 'error', summary: 'DATAE', detail: 'solicitud mal formulada' });
+            } else if (error.status === 500) {
+                this.messageService.add({
+                    severity: 'error', summary: 'DATAE'
+                    , detail: 'error interno, comuniquelo al operario de soporte'
+                });
+            } else {
+                this.messageService.add({ severity: 'error', summary: 'DATAE', detail: 'htt return' + error.status });
+            }
+            // return Promise.reject(error.message || error);
+            return { status: 0 };
         }
     }
 

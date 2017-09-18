@@ -8,6 +8,7 @@ import { MessageService } from 'primeng/components/common/messageservice';
 import { GrowlModule } from 'primeng/components/growl/growl';
 import {DataTableModule, SharedModule} from 'primeng/primeng';
 import { MenubarModule } from 'primeng/components/menubar/menubar';
+import {TabViewModule} from 'primeng/primeng';
 
 import { AppComponent } from './core/app/app.component';
 import { LoginComponent } from './core/login/login.component'
@@ -42,7 +43,8 @@ import { MenuObservable } from './core/menu/menu.observable';
     DataTableModule,
     SharedModule,
     FormsModule,
-    MenubarModule
+    MenubarModule,
+    TabViewModule
   ],
   providers: [
     MenuObservable,
