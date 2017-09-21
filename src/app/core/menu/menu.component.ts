@@ -49,7 +49,6 @@ export class MenuComponent implements OnInit, OnDestroy {
           }
         } else {
           this.items = item;
-          console.log(item);
           if (this.items !== null && this.items.length > 0) {
             this.visible = true;
           } else {

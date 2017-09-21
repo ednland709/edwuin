@@ -15,6 +15,7 @@ export class DynamicsMergeComponent implements OnInit, OnDestroy {
   private definition: any;
   private ladef: string;
   public formData = {};
+  public salida;
 
   constructor(private route: ActivatedRoute, private _dynamicsService: DynamicsService) {
     this.sub = this.route.params.subscribe(params => {
@@ -33,5 +34,11 @@ export class DynamicsMergeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  save(theData: any) {
+    this.salida = theData;
+    console.log('aja');
+    console.log(theData.controls["rz"].errors);
   }
 }
